@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0B1F3A;
+    font-family: 'Calibri', 'Segoe UI', sans-serif;
+    color: #FFFFFF;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .slide {
+    width: 900px;
+    background: #0B1F3A;
+    position: relative;
+    padding: 36px 40px 32px 40px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .accent-bar {
+    width: 6px;
+    height: 52px;
+    background: #00B4D8;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .header-text {}
+  .header-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #00B4D8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .header-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.15;
+  }
+  .header-subtitle {
+    font-size: 13px;
+    color: #CBD5E1;
+    margin-top: 4px;
+  }
+
+  /* Big definition card */
+  .def-card {
+    background: #1A3352;
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .def-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: #00B4D8;
+    border-radius: 2px 0 0 2px;
+  }
+  .def-quote {
+    font-size: 13px;
+    font-weight: 700;
+    color: #00B4D8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .def-text {
+    font-size: 17px;
+    color: #FFFFFF;
+    line-height: 1.6;
+  }
+  .def-text strong {
+    color: #00B4D8;
+  }
+  .def-analogy {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #CBD5E1;
+    font-style: italic;
+  }
+
+  /* Three columns */
+  .three-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .col-card {
+    background: #1A3352;
+    border-radius: 10px;
+    padding: 20px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .col-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0;
+    height: 4px;
+    border-radius: 2px 2px 0 0;
+  }
+  .col-card.teal::before  { background: #00B4D8; }
+  .col-card.green::before { background: #72C25D; }
+  .col-card.orange::before{ background: #F4803A; }
+
+  .col-icon {
+    font-size: 26px;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+  .col-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .col-card.teal .col-title  { color: #00B4D8; }
+  .col-card.green .col-title { color: #72C25D; }
+  .col-card.orange .col-title{ color: #F4803A; }
+
+  .col-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .col-items li {
+    font-size: 13px;
+    color: #CBD5E1;
+    line-height: 1.4;
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+  }
+  .col-items li .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .teal .dot  { background: #00B4D8; }
+  .green .dot { background: #72C25D; }
+  .orange .dot{ background: #F4803A; }
+
+  /* Flow diagram */
+  .flow-section {
+    background: #1A3352;
+    border-radius: 10px;
+    padding: 18px 24px;
+    margin-bottom: 20px;
+  }
+  .flow-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #CBD5E1;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: space-between;
+  }
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+  }
+  .flow-box {
+    background: #0B1F3A;
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+    width: 100%;
+    border: 1px solid #2A4A6A;
+  }
+  .flow-box .ficon { font-size: 18px; line-height: 1; margin-bottom: 4px; }
+  .flow-box .fname { font-size: 11.5px; font-weight: 700; color: #FFFFFF; }
+  .flow-box .fsub  { font-size: 10px; color: #CBD5E1; margin-top: 2px; }
+  .flow-arrow {
+    font-size: 18px;
+    color: #00B4D8;
+    flex-shrink: 0;
+    padding: 0 4px;
+    margin-bottom: 16px;
+  }
+
+  /* Bottom stat bar */
+  .stat-bar {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .stat-pill {
+    background: #1A3352;
+    border-radius: 8px;
+    padding: 12px 18px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 3px solid #00B4D8;
+  }
+  .stat-pill.alt { border-color: #72C25D; }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: #00B4D8;
+    line-height: 1;
+  }
+  .stat-pill.alt .stat-num { color: #72C25D; }
+  .stat-desc {
+    font-size: 12px;
+    color: #CBD5E1;
+    line-height: 1.3;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #1A3352;
+  }
+  .footer-brand {
+    font-size: 13px;
+    font-weight: 700;
+    color: #00B4D8;
+    letter-spacing: 1px;
+  }
+  .footer-url {
+    font-size: 11px;
+    color: #CBD5E1;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="accent-bar"></div>
+    <div class="header-text">
+      <div class="header-tag">Rastreamento de Marketing</div>
+      <div class="header-title">O que é rastreamento?<br>Para que serve? Quem precisa?</div>
+      <div class="header-subtitle">Entenda por que dados precisos são a base de toda decisão de marketing</div>
+    </div>
+  </div>
+
+  <!-- Definition -->
+  <div class="def-card">
+    <div class="def-quote">📡 Definição</div>
+    <div class="def-text">
+      Rastreamento é a capacidade de <strong>registrar cada ação do usuário</strong> no ambiente digital — do clique no anúncio até a compra final — e <strong>enviar esse dado com precisão</strong> para as plataformas de mídia e análise.
+    </div>
+    <div class="def-analogy">
+      Analogia: é a câmera de segurança do seu marketing digital. Sem ela, você investe no escuro.
+    </div>
+  </div>
+
+  <!-- Three columns -->
+  <div class="three-cols">
+
+    <!-- O que faz -->
+    <div class="col-card teal">
+      <div class="col-icon">🔍</div>
+      <div class="col-title">O que faz</div>
+      <ul class="col-items">
+        <li><span class="dot"></span>Captura cliques, visitas, formulários e compras</li>
+        <li><span class="dot"></span>Envia eventos para Meta, Google, TikTok e outros</li>
+        <li><span class="dot"></span>Identifica qual anúncio gerou qual venda</li>
+        <li><span class="dot"></span>Alimenta os algoritmos com dados de qualidade</li>
+        <li><span class="dot"></span>Protege dados pessoais (LGPD/SHA-256)</li>
+      </ul>
+    </div>
+
+    <!-- Para que serve -->
+    <div class="col-card green">
+      <div class="col-icon">🎯</div>
+      <div class="col-title">Para que serve</div>
+      <ul class="col-items">
+        <li><span class="dot"></span>Saber o que está gerando resultado de verdade</li>
+        <li><span class="dot"></span>Otimizar campanhas com dados reais, não estimativas</li>
+        <li><span class="dot"></span>Provar o ROI do marketing para a diretoria</li>
+        <li><span class="dot"></span>Reduzir custo por aquisição (CPA/CAC)</li>
+        <li><span class="dot"></span>Tomar decisões de orçamento com segurança</li>
+      </ul>
+    </div>
+
+    <!-- Quem precisa -->
+    <div class="col-card orange">
+      <div class="col-icon">🏢</div>
+      <div class="col-title">Quem precisa</div>
+      <ul class="col-items">
+        <li><span class="dot"></span>E-commerces com mídia paga (Meta, Google)</li>
+        <li><span class="dot"></span>SaaS e startups que medem leads e ativações</li>
+        <li><span class="dot"></span>Empresas com jornadas de venda complexas</li>
+        <li><span class="dot"></span>Agências que precisam provar resultado</li>
+        <li><span class="dot"></span>Qualquer negócio que investe em tráfego pago</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Flow -->
+  <div class="flow-section">
+    <div class="flow-label">Como funciona — do clique à decisão</div>
+    <div class="flow-row">
+      <div class="flow-step">
+        <div class="flow-box">
+          <div class="ficon">👆</div>
+          <div class="fname">Usuário age</div>
+          <div class="fsub">clique · compra · lead</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-box">
+          <div class="ficon">🏷️</div>
+          <div class="fname">GTM captura</div>
+          <div class="fsub">DataLayer · evento</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-box">
+          <div class="ficon">🖥️</div>
+          <div class="fname">sGTM processa</div>
+          <div class="fsub">server-side · seguro</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-box">
+          <div class="ficon">📡</div>
+          <div class="fname">Plataformas recebem</div>
+          <div class="fsub">Meta · Google · TikTok</div>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-box">
+          <div class="ficon">📊</div>
+          <div class="fname">Dados para decisão</div>
+          <div class="fsub">BigQuery · Dashboard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat bar -->
+  <div class="stat-bar">
+    <div class="stat-pill">
+      <div class="stat-num">~30%</div>
+      <div class="stat-desc">dos eventos de conversão são perdidos<br>sem rastreamento server-side</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num">80%</div>
+      <div class="stat-desc">das decisões de otimização são baseadas<br>em dados — corretos ou não</div>
+    </div>
+    <div class="stat-pill alt">
+      <div class="stat-num">338</div>
+      <div class="stat-desc">projetos implementados pela D2G<br>em 6 anos de mercado</div>
+    </div>
+    <div class="stat-pill alt">
+      <div class="stat-num">80+</div>
+      <div class="stat-desc">clientes únicos atendidos<br>em múltiplos segmentos</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">DATA2GROWTH</div>
+    <div class="footer-url">data2growth.com.br · rastreamento avançado · engenharia de dados</div>
+  </div>
+
+</div>
+</body>
+</html>
